@@ -1,7 +1,11 @@
 namespace MobShop.Models
 
 [<CLIMutable>]
-type Message =
+type Product =
     {
-        Text : string
+        ID: int;
+        Name: string;
+        Price: decimal;
+        SmallDescription: string;
+        LongDescription: string;
     }

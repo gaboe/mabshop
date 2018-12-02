@@ -1,0 +1,8 @@
+{
+  "workbench.colorCustomizations": {
+    "statusBar.background": "#949101",
+    "statusBar.noFolderBackground": "#949101",
+    "statusBar.debuggingBackground": "#949101"
+  },
+  "typescript.tsdk": "node_modules\\typescript\\lib"
+}

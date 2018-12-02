@@ -12,7 +12,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: MyHomePage(title: 'MobShop'),
+      home: HomePage(title: 'MobShop'),
       routes: <String, WidgetBuilder>{
         CataloguePage.routeName: (BuildContext context) => new CataloguePage()
       },

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:mobshop/screens/catalogue/catalogue.dart';
 import 'package:mobshop/screens/home.dart';
-import 'package:mobshop/screens/products.dart';
 
 void main() => runApp(MyApp());
 

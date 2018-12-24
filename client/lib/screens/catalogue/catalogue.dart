@@ -1,16 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:mobshop/models/product.dart';
-import 'package:mobshop/screens/girdview.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+
+import 'package:mobshop/screens/catalogue/grid.dart';
 
 class CataloguePage extends StatelessWidget {
   static const String routeName = "/catalogue";
 
   @override
   Widget build(BuildContext context) {
-    final MyGridView myGridView = new MyGridView();
-
     return new Scaffold(
       // AppBar
       appBar: new AppBar(
@@ -25,7 +24,7 @@ class CataloguePage extends StatelessWidget {
         future: fetchProducts(),
         builder: (ctx, snapshot) {
           if (snapshot.hasData) {
-            return myGridView.build(snapshot.data);
+            return Grid().build(snapshot.data);
           } else if (snapshot.hasError) {
             return Text("${snapshot.error}");
           }

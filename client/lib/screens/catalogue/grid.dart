@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mobshop/models/product.dart';
 
-class MyGridView {
+class Grid {
   GridView build(List<Product> products) {
     return new GridView.count(
         primary: true,

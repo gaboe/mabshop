@@ -11,14 +11,10 @@ class CataloguePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
-      // AppBar
       appBar: new AppBar(
-        // Title
         title: new Text("Products"),
-        // App Bar background color
         backgroundColor: Colors.blue,
       ),
-      // Body
       body: Container(
           child: FutureBuilder<List<Product>>(
         future: fetchProducts(),
@@ -54,7 +50,6 @@ Future<List<Product>> fetchProducts() async {
         list.map((model) => Product.fromJson(model)).toList();
     return products.toList();
   } else {
-    // If that response was not OK, throw an error.
-    throw Exception('Failed to load post');
+    throw Exception('Failed to load products');
   }
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mobshop/models/product.dart';
 import 'package:http/http.dart' as http;
+import 'package:mobshop/screens/cart/cart.dart';
 import 'dart:convert';
 
 import 'package:mobshop/screens/catalogue/grid.dart';
@@ -14,6 +15,14 @@ class CataloguePage extends StatelessWidget {
       appBar: new AppBar(
         title: new Text("Products"),
         backgroundColor: Colors.blue,
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(Icons.shopping_basket),
+            onPressed: () {
+              Navigator.of(context).pushNamed(CartPage.routeName);
+            },
+          ),
+        ],
       ),
       body: Container(
           child: FutureBuilder<List<Product>>(

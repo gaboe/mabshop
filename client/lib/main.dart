@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mobshop/screens/cart/cart.dart';
 import 'package:mobshop/screens/catalogue/catalogue.dart';
 import 'package:mobshop/screens/home.dart';
 
@@ -14,7 +15,8 @@ class MyApp extends StatelessWidget {
       ),
       home: HomePage(title: 'MobShop'),
       routes: <String, WidgetBuilder>{
-        CataloguePage.routeName: (BuildContext context) => new CataloguePage()
+        CataloguePage.routeName: (BuildContext context) => new CataloguePage(),
+        CartPage.routeName: (BuildContext context) => new CartPage()
       },
     );
   }

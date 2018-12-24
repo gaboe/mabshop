@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:mobshop/models/cartItem.dart';
 import 'package:mobshop/models/product.dart';
+import 'package:mobshop/services/cartItemService.dart';
+import 'package:sqflite/sqflite.dart';
 
 class DetailScreen extends StatelessWidget {
   final Product product;
@@ -59,7 +62,17 @@ class DetailScreen extends StatelessWidget {
         size: 20,
       ),
       label: Text("Add to cart"),
-      onPressed: () {},
+      onPressed: () async {
+        var s = new CartItemService();
+        var dbDir = await getDatabasesPath() + "mobshop.db";
+        await s.open(dbDir);
+        var item = new CartItem();
+        item.price = product.price;
+        item.productID = product.id;
+        item.productName = product.name;
+
+        s.insert(item);
+      },
       color: Colors.greenAccent,
     );
   }

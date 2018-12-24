@@ -1,18 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:mobshop/models/product.dart';
 
-class CataloguePage extends StatelessWidget {
-  static const String routeName = "/catalogue";
+class DetailScreen extends StatelessWidget {
+  // Declare a field that holds the Todo
+  final Product product;
+
+  // In the constructor, require a Todo
+  DetailScreen({Key key, @required this.product}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return new Scaffold(
-      appBar: new AppBar(
-        title: new Text("Products"),
-        backgroundColor: Colors.blue,
+    // Use the Todo to create our UI
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("${product.name}"),
       ),
-      body: Container(
-        child: Text("produkt"),
+      body: Padding(
+        padding: EdgeInsets.all(16.0),
+        child: Text('${product.smallDescription}'),
       ),
     );
   }

@@ -20,7 +20,7 @@ class CataloguePage extends StatelessWidget {
         future: fetchProducts(),
         builder: (ctx, snapshot) {
           if (snapshot.hasData) {
-            return Grid().build(snapshot.data);
+            return Grid().build(context, snapshot.data);
           } else if (snapshot.hasError) {
             return Text("${snapshot.error}");
           }

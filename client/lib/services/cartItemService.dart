@@ -2,7 +2,7 @@ import 'package:mobshop/models/cartItem.dart';
 import 'package:sqflite/sqflite.dart';
 
 class CartItemService {
-  Future<Database> open(String path) async {
+  Future<Database> _open(String path) async {
     var db = await openDatabase(path, version: 1,
         onCreate: (Database db, int version) async {
       await db.execute('''
@@ -53,16 +53,16 @@ class CartItemService {
         where: '$columnId = ?', whereArgs: [todo.id]));
   }
 
-  Future close(Database db) async => db.close();
+  Future _close(Database db) async => db.close();
 
   Future<T> execute<T>(Future<T> f(Database db)) async {
     var path = await getDatabasesPath() + "mobshop.db";
-    var db = await open(path);
+    var db = await _open(path);
     T data;
     try {
       data = await f(db);
     } finally {
-      await close(db);
+      await _close(db);
     }
     return data;
   }

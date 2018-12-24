@@ -35,8 +35,11 @@ class Grid {
                     ),
                   );
                 },
-                child: Image.network(
-                  product.imageUrl,
+                child: Hero(
+                  tag: 'productDetailHero' + product.id.toString(),
+                  child: Image.network(
+                    product.imageUrl,
+                  ),
                 ),
               ),
             ),

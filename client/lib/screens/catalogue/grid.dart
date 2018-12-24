@@ -11,7 +11,7 @@ class Grid {
         mainAxisSpacing: 1.0,
         crossAxisSpacing: 1.0,
         children: products
-            .map((p) => getStructuredGridCell(p.name, p.name))
+            .map((p) => getStructuredGridCell(p.name, p.imageUrl))
             .toList());
   }
 
@@ -23,8 +23,10 @@ class Grid {
           mainAxisSize: MainAxisSize.min,
           verticalDirection: VerticalDirection.down,
           children: <Widget>[
-            Image.network(
-              image,
+            Expanded(
+              child: Image.network(
+                image,
+              ),
             ),
             new Center(child: Text(name))
           ],

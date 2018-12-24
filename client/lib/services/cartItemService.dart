@@ -10,11 +10,23 @@ class CartItemService {
                                     $columnId integer primary key autoincrement, 
                                     $columnProductID integer not null,
                                     $columnProductName text not null,
+                                    $columnQuantity integer not null,
                                     $columnPrice real not null
                                     )
                                   ''');
     });
     return db;
+  }
+
+  Future<CartItem> addToCart(CartItem cartItem) async {
+    var prevCartItem = await getCartItem(cartItem.productID);
+    if (prevCartItem != null) {
+      prevCartItem.price += cartItem.price;
+      prevCartItem.quantity++;
+      await update(prevCartItem);
+      return prevCartItem;
+    }
+    return insert(cartItem);
   }
 
   Future<CartItem> insert(CartItem cartItem) async {
@@ -32,25 +44,35 @@ class CartItemService {
     return items;
   }
 
-  // Future<CartItem> getCartItem(int productID) async {
-  //   List<Map> maps = await db.query(cartItemsTable,
-  //       columns: [columnId, columnProductID, columnProductName, columnPrice],
-  //       where: '$columnProductID = ?',
-  //       whereArgs: [productID]);
-  //   if (maps.length > 0) {
-  //     return CartItem.fromMap(maps.first);
-  //   }
-  //   return null;
-  // }
+  Future<CartItem> getCartItem(int productID) async {
+    var cartItem = execute((db) async {
+      List<Map> maps = await db.query(cartItemsTable,
+          columns: [
+            columnId,
+            columnProductID,
+            columnProductName,
+            columnPrice,
+            columnQuantity
+          ],
+          where: '$columnProductID = ?',
+          whereArgs: [productID]);
+      if (maps.length > 0) {
+        return CartItem.fromMap(maps.first);
+      }
+      return null;
+    });
 
-  // Future<int> delete(int id) async {
-  //   return await db
-  //       .delete(cartItemsTable, where: '$columnId = ?', whereArgs: [id]);
-  // }
+    return cartItem;
+  }
 
-  Future<int> update(CartItem todo) async {
-    return execute<int>((d) => d.update(cartItemsTable, todo.toMap(),
-        where: '$columnId = ?', whereArgs: [todo.id]));
+  Future<int> delete(int id) async {
+    return execute((db) =>
+        db.delete(cartItemsTable, where: '$columnId = ?', whereArgs: [id]));
+  }
+
+  Future<int> update(CartItem cartItem) async {
+    return execute<int>((d) => d.update(cartItemsTable, cartItem.toMap(),
+        where: '$columnId = ?', whereArgs: [cartItem.id]));
   }
 
   Future _close(Database db) async => db.close();

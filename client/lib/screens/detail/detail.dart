@@ -68,8 +68,8 @@ class DetailScreen extends StatelessWidget {
         item.price = product.price;
         item.productID = product.id;
         item.productName = product.name;
-
-        new CartItemService().insert(item);
+        item.quantity = 1;
+        new CartItemService().addToCart(item);
       },
       color: Colors.greenAccent,
     );

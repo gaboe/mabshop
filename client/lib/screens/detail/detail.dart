@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:mobshop/models/cartItem.dart';
 import 'package:mobshop/models/product.dart';
+import 'package:mobshop/screens/cart/cartIcon.dart';
 import 'package:mobshop/services/cartItemService.dart';
 import 'package:sqflite/sqflite.dart';
 
@@ -15,6 +16,7 @@ class DetailScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text("${product.name}"),
+        actions: <Widget>[CartIcon()],
       ),
       body: Padding(
           padding: EdgeInsets.all(5.0),

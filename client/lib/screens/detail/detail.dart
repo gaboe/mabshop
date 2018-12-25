@@ -7,6 +7,7 @@ import 'package:mobshop/screens/detail/longDescription.dart';
 import 'package:mobshop/screens/detail/price.dart';
 import 'package:mobshop/screens/detail/productImage.dart';
 import 'package:mobshop/screens/detail/productText.dart';
+import 'package:mobshop/services/blocProvider.dart';
 
 class DetailScreen extends StatelessWidget {
   final Product product;
@@ -28,9 +29,11 @@ class DetailScreen extends StatelessWidget {
                 ProductImage(product: product),
                 ProductText(product: product),
                 Price(product: product),
-                AddToCartButton(
-                  product: product,
-                ),
+                BlocProvider<AddToCartBloc>(
+                    child: AddToCartButton(
+                      product: product,
+                    ),
+                    bloc: AddToCartBloc()),
                 LongDescription(product: product),
               ],
             ),

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mobshop/screens/cart/cart.dart';
 import 'package:mobshop/screens/catalogue/catalogue.dart';
-import 'package:mobshop/screens/home.dart';
+import 'package:mobshop/screens/home/home.dart';
 
 void main() => runApp(MyApp());
 

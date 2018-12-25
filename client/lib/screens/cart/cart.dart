@@ -37,7 +37,7 @@ class CartPageState extends State<CartPage> {
         future: _cartItems,
         builder: (ctx, snapshot) {
           if (snapshot.hasData) {
-            var c = snapshot.data
+            var cartItems = snapshot.data
                 .map((cartItem) => ListTile(
                       leading: GestureDetector(
                           onTap: () async {
@@ -51,7 +51,7 @@ class CartPageState extends State<CartPage> {
                     ))
                 .toList();
             var sum =
-                snapshot.data.map((e) => e.price).reduce((e, sum) => e + sum);
+                snapshot.data.map((e) => e.price).fold(0, (e, sum) => e + sum);
             return new Column(children: <Widget>[
               Padding(
                 padding: const EdgeInsets.all(15),
@@ -63,7 +63,7 @@ class CartPageState extends State<CartPage> {
                       )),
                 ),
               ),
-              Expanded(child: ListView(children: c))
+              Expanded(child: ListView(children: cartItems))
             ]);
           } else if (snapshot.hasError) {
             return Text("Error");

@@ -1,6 +1,6 @@
-// Create a Form Widget
-
 import 'package:flutter/material.dart';
+import 'package:mobshop/models/locationIq.dart';
+import 'package:mobshop/services/locationService.dart';
 
 class SecondStep extends StatefulWidget {
   static const String routeName = "/secondStep";
@@ -11,18 +11,19 @@ class SecondStep extends StatefulWidget {
   }
 }
 
-// Create a corresponding State class. This class will hold the data related to
-// the form.
 class SecondStepState extends State<SecondStep> {
-  // Create a global key that will uniquely identify the Form widget and allow
-  // us to validate the form
-  //
-  // Note: This is a GlobalKey<FormState>, not a GlobalKey<MyCustomFormState>!
   final _formKey = GlobalKey<FormState>();
+  Future<LocationIQAddress> _location;
+  final LocationService _service = new LocationService();
+
+  @override
+  void initState() {
+    super.initState();
+    _location = _service.getCurrentLocationData();
+  }
 
   @override
   Widget build(BuildContext context) {
-    // Build a Form widget using the _formKey we created above
     return Scaffold(
       appBar: AppBar(
         title: Text("Cart"),
@@ -54,6 +55,40 @@ class SecondStepState extends State<SecondStep> {
                   validator: (value) {
                     if (value.isEmpty) {
                       return 'Please enter your name';
+                    }
+                  },
+                ),
+                FutureBuilder(
+                  future: _location,
+                  builder: (ctx, AsyncSnapshot<LocationIQAddress> snapshot) {
+                    if (snapshot.hasData) {
+                      var postcode = snapshot.data.postcode;
+                      return TextFormField(
+                        key: Key(postcode),
+                        initialValue: postcode,
+                        keyboardType: TextInputType.text,
+                        decoration: InputDecoration(
+                          labelText: "Postal code",
+                        ),
+                        validator: (value) {
+                          if (value.isEmpty) {
+                            return 'Please enter your name';
+                          }
+                        },
+                      );
+                    } else {
+                      return TextFormField(
+                        key: Key("empty"),
+                        keyboardType: TextInputType.text,
+                        decoration: InputDecoration(
+                          labelText: "Postal code",
+                        ),
+                        validator: (value) {
+                          if (value.isEmpty) {
+                            return 'Please enter your name';
+                          }
+                        },
+                      );
                     }
                   },
                 ),

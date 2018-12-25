@@ -37,19 +37,34 @@ class CartPageState extends State<CartPage> {
         future: _cartItems,
         builder: (ctx, snapshot) {
           if (snapshot.hasData) {
-            return ListView(
-              children: snapshot.data
-                  .map((cartItem) => ListTile(
-                        leading: GestureDetector(
-                            onTap: () async {
-                              await _service.delete(cartItem.id);
-                              _refreshList();
-                            },
-                            child: Icon(Icons.close)),
-                        title: Text(cartItem.productName),
-                      ))
-                  .toList(),
-            );
+            var c = snapshot.data
+                .map((cartItem) => ListTile(
+                      leading: GestureDetector(
+                          onTap: () async {
+                            await _service.delete(cartItem.id);
+                            _refreshList();
+                          },
+                          child: Icon(Icons.close)),
+                      title:
+                          Text("${cartItem.productName} ${cartItem.quantity}x"),
+                      subtitle: Text("${cartItem.price} EUR"),
+                    ))
+                .toList();
+            var sum =
+                snapshot.data.map((e) => e.price).reduce((e, sum) => e + sum);
+            return new Column(children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.all(15),
+                child: Container(
+                  child: new Text("Summary ${sum.toStringAsFixed(2)} EUR",
+                      style: new TextStyle(
+                        fontSize: 25,
+                        fontWeight: FontWeight.bold,
+                      )),
+                ),
+              ),
+              Expanded(child: ListView(children: c))
+            ]);
           } else if (snapshot.hasError) {
             return Text("Error");
           }

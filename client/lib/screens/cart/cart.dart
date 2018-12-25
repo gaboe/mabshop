@@ -42,6 +42,13 @@ class CartPageState extends State<CartPage> {
                       leading: GestureDetector(
                           onTap: () async {
                             await _service.delete(cartItem.id);
+                            final snackBar = SnackBar(
+                              content: Text(
+                                  '${cartItem.productName} was removed from cart'),
+                              backgroundColor: Colors.red,
+                              duration: new Duration(seconds: 2),
+                            );
+                            Scaffold.of(ctx).showSnackBar(snackBar);
                             _refreshList();
                           },
                           child: Icon(Icons.close)),

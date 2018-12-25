@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:mobshop/screens/cart/cart.dart';
+import 'package:mobshop/screens/cart/firstStep.dart';
+import 'package:mobshop/screens/cart/secondStep.dart';
 import 'package:mobshop/screens/catalogue/catalogue.dart';
 import 'package:mobshop/screens/home/home.dart';
 
@@ -16,7 +17,8 @@ class MyApp extends StatelessWidget {
       home: HomePage(title: 'MobShop'),
       routes: <String, WidgetBuilder>{
         CataloguePage.routeName: (BuildContext context) => new CataloguePage(),
-        CartPage.routeName: (BuildContext context) => new CartPage()
+        FirstStep.routeName: (BuildContext context) => new FirstStep(),
+        SecondStep.routeName: (BuildContext context) => new SecondStep()
       },
     );
   }

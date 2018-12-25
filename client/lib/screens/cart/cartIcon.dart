@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mobshop/screens/cart/cart.dart';
+import 'package:mobshop/screens/cart/firstStep.dart';
 
 class CartIcon extends StatelessWidget {
   const CartIcon({
@@ -11,7 +11,7 @@ class CartIcon extends StatelessWidget {
     return IconButton(
       icon: Icon(Icons.shopping_basket),
       onPressed: () {
-        Navigator.of(context).pushNamed(CartPage.routeName);
+        Navigator.of(context).pushNamed(FirstStep.routeName);
       },
     );
   }

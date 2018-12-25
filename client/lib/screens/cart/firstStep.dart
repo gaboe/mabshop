@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:mobshop/models/cartItem.dart';
+import 'package:mobshop/screens/cart/secondStep.dart';
 import 'package:mobshop/services/cartItemService.dart';
 
-class CartPage extends StatefulWidget {
-  static const String routeName = "/cart";
+class FirstStep extends StatefulWidget {
+  static const String routeName = "/firstStep";
 
   @override
-  CartPageState createState() {
-    return new CartPageState();
+  FirstStepState createState() {
+    return new FirstStepState();
   }
 }
 
-class CartPageState extends State<CartPage> {
+class FirstStepState extends State<FirstStep> {
   Future<List<CartItem>> _cartItems;
   var _service = new CartItemService();
 
@@ -63,6 +64,23 @@ class CartPageState extends State<CartPage> {
             var sum =
                 snapshot.data.map((e) => e.price).fold(0, (e, sum) => e + sum);
             return new Column(children: <Widget>[
+              Align(
+                alignment: Alignment.topRight,
+                child: RaisedButton.icon(
+                  icon: Icon(
+                    Icons.keyboard_arrow_right,
+                    size: 20,
+                    color: Colors.white,
+                  ),
+                  label: Text(
+                    'Contact',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  onPressed: () =>
+                      Navigator.of(context).pushNamed(SecondStep.routeName),
+                  color: Colors.greenAccent[700],
+                ),
+              ),
               Padding(
                 padding: const EdgeInsets.all(15),
                 child: Container(

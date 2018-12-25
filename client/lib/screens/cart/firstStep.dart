@@ -39,7 +39,8 @@ class FirstStepState extends State<FirstStep> {
         builder: (ctx, snapshot) {
           if (snapshot.hasData) {
             var cartItems = snapshot.data
-                .map((cartItem) => ListTile(
+                .map((cartItem) => Card(
+                        child: ListTile(
                       leading: GestureDetector(
                           onTap: () async {
                             await _service.delete(cartItem.id);
@@ -59,7 +60,7 @@ class FirstStepState extends State<FirstStep> {
                       title:
                           Text("${cartItem.productName} ${cartItem.quantity}x"),
                       subtitle: Text("${cartItem.price} EUR"),
-                    ))
+                    )))
                 .toList();
             var sum =
                 snapshot.data.map((e) => e.price).fold(0, (e, sum) => e + sum);

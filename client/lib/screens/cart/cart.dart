@@ -51,7 +51,10 @@ class CartPageState extends State<CartPage> {
                             Scaffold.of(ctx).showSnackBar(snackBar);
                             _refreshList();
                           },
-                          child: Icon(Icons.close)),
+                          child: Icon(
+                            Icons.close,
+                            size: 40,
+                          )),
                       title:
                           Text("${cartItem.productName} ${cartItem.quantity}x"),
                       subtitle: Text("${cartItem.price} EUR"),

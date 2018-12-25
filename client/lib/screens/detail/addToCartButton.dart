@@ -20,16 +20,21 @@ class AddToCartButton extends StatelessWidget {
       icon: Icon(
         Icons.add_shopping_cart,
         size: 20,
+        color: Colors.white,
       ),
-      label: Container(
-        child: StreamBuilder<int>(
-            stream: bloc.outCounter,
-            initialData: 0,
-            builder: (BuildContext context, AsyncSnapshot<int> snapshot) {
-              return Text('Add to cart me: ${snapshot.data} times');
-            }),
+      label: Text(
+        'Add to cart',
+        style: TextStyle(color: Colors.white),
       ),
-      onPressed: () => bloc.incrementCounter.add(null), // addToCart(),
+      onPressed: () {
+        bloc.addToCart.add(product);
+        final snackBar = SnackBar(
+          content: Text('${product.name} was added to cart'),
+          backgroundColor: Colors.greenAccent[400],
+          duration: new Duration(seconds: 2),
+        );
+        Scaffold.of(context).showSnackBar(snackBar);
+      },
       color: Colors.greenAccent[700],
     );
   }
@@ -45,23 +50,10 @@ class AddToCartButton extends StatelessWidget {
 }
 
 class AddToCartBloc implements BlocBase {
-  int _counter;
-
-  //
-  // Stream to handle the counter
-  //
-  StreamController<int> _counterController = StreamController<int>();
-  StreamSink<int> get _inAdd => _counterController.sink;
-  Stream<int> get outCounter => _counterController.stream;
-
-  //
-  // Stream to handle the action on the counter
-  //
-  StreamController _actionController = StreamController();
-  StreamSink get incrementCounter => _actionController.sink;
+  StreamController<Product> _actionController = StreamController();
+  StreamSink<Product> get addToCart => _actionController.sink;
 
   AddToCartBloc() {
-    _counter = 0;
     new Observable(_actionController.stream)
         .throttle(new Duration(milliseconds: 200))
         .listen(_handleLogic);
@@ -69,11 +61,14 @@ class AddToCartBloc implements BlocBase {
 
   void dispose() {
     _actionController.close();
-    _counterController.close();
   }
 
-  void _handleLogic(data) {
-    _counter = _counter + 1;
-    _inAdd.add(_counter);
+  void _handleLogic(Product product) {
+    var item = new CartItem();
+    item.price = product.price;
+    item.productID = product.id;
+    item.productName = product.name;
+    item.quantity = 1;
+    new CartItemService().addToCart(item);
   }
 }

@@ -70,6 +70,10 @@ class CartItemService {
         db.delete(cartItemsTable, where: '$columnId = ?', whereArgs: [id]));
   }
 
+  Future deleteAll() async {
+    return execute((db) => db.delete(cartItemsTable));
+  }
+
   Future<int> update(CartItem cartItem) async {
     return execute<int>((d) => d.update(cartItemsTable, cartItem.toMap(),
         where: '$columnId = ?', whereArgs: [cartItem.id]));
@@ -87,5 +91,12 @@ class CartItemService {
       await _close(db);
     }
     return data;
+  }
+
+  Future finishOrder() async {
+    var items = await getCartItems();
+    var orderNumber = items.fold("", (n, e) => "$n${e.id}");
+    await deleteAll();
+    return orderNumber;
   }
 }

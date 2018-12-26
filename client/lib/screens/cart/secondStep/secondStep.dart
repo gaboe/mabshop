@@ -4,6 +4,8 @@ import 'package:mobshop/screens/cart/secondStep/city.dart';
 import 'package:mobshop/screens/cart/secondStep/email.dart';
 import 'package:mobshop/screens/cart/secondStep/fullName.dart';
 import 'package:mobshop/screens/cart/secondStep/postalCode.dart';
+import 'package:mobshop/screens/cart/thirdStep.dart';
+import 'package:mobshop/services/cartItemService.dart';
 import 'package:mobshop/services/locationService.dart';
 
 class SecondStep extends StatefulWidget {
@@ -48,10 +50,18 @@ class SecondStepState extends State<SecondStep> {
                   child: RaisedButton(
                     textColor: Colors.white,
                     color: Colors.greenAccent[700],
-                    onPressed: () {
+                    onPressed: () async {
                       if (_formKey.currentState.validate()) {
-                        Scaffold.of(context).showSnackBar(
-                            SnackBar(content: Text('Processing Data')));
+                        var orderNumber =
+                            await new CartItemService().finishOrder();
+                        Navigator.pushAndRemoveUntil(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => ThirdStep(
+                                    orderNumber: orderNumber,
+                                  ),
+                            ),
+                            (_) => false);
                       }
                     },
                     child: Text('Send order'),

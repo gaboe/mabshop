@@ -65,23 +65,7 @@ class FirstStepState extends State<FirstStep> {
             var sum =
                 snapshot.data.map((e) => e.price).fold(0, (e, sum) => e + sum);
             return new Column(children: <Widget>[
-              Align(
-                alignment: Alignment.topRight,
-                child: RaisedButton.icon(
-                  icon: Icon(
-                    Icons.keyboard_arrow_right,
-                    size: 20,
-                    color: Colors.white,
-                  ),
-                  label: Text(
-                    'Contact',
-                    style: TextStyle(color: Colors.white),
-                  ),
-                  onPressed: () =>
-                      Navigator.of(context).pushNamed(SecondStep.routeName),
-                  color: Colors.greenAccent[700],
-                ),
-              ),
+              buildContactButton(context, snapshot.data),
               Padding(
                 padding: const EdgeInsets.all(15),
                 child: Container(
@@ -92,6 +76,7 @@ class FirstStepState extends State<FirstStep> {
                       )),
                 ),
               ),
+              buildEmptyCartWarning(snapshot.data),
               Expanded(child: ListView(children: cartItems))
             ]);
           } else if (snapshot.hasError) {
@@ -101,5 +86,45 @@ class FirstStepState extends State<FirstStep> {
         },
       ),
     );
+  }
+
+  Widget buildContactButton(BuildContext context, List<CartItem> cartItems) {
+    if (cartItems.length == 0)
+      return Container();
+    else
+      return Align(
+        alignment: Alignment.topRight,
+        child: RaisedButton.icon(
+          icon: Icon(
+            Icons.keyboard_arrow_right,
+            size: 20,
+            color: Colors.white,
+          ),
+          label: Text(
+            'Contact',
+            style: TextStyle(color: Colors.white),
+          ),
+          onPressed: () =>
+              Navigator.of(context).pushNamed(SecondStep.routeName),
+          color: Colors.greenAccent[700],
+        ),
+      );
+  }
+
+  Widget buildEmptyCartWarning(List<CartItem> cartItems) {
+    if (cartItems.length > 0)
+      return Container();
+    else
+      return Padding(
+        padding: const EdgeInsets.all(15),
+        child: Container(
+          child:
+              new Text("Your cart is empty, go to catalogue and buy something",
+                  style: new TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  )),
+        ),
+      );
   }
 }

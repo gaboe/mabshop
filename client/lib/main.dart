@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mobshop/screens/cart/firstStep.dart';
 import 'package:mobshop/screens/cart/secondStep/secondStep.dart';
+import 'package:mobshop/screens/cart/thirdStep.dart';
 import 'package:mobshop/screens/catalogue/catalogue.dart';
 import 'package:mobshop/screens/home/home.dart';
 
@@ -18,7 +19,8 @@ class MyApp extends StatelessWidget {
       routes: <String, WidgetBuilder>{
         CataloguePage.routeName: (BuildContext context) => new CataloguePage(),
         FirstStep.routeName: (BuildContext context) => new FirstStep(),
-        SecondStep.routeName: (BuildContext context) => new SecondStep()
+        SecondStep.routeName: (BuildContext context) => new SecondStep(),
+        ThirdStep.routeName: (BuildContext context) => new ThirdStep(),
       },
     );
   }

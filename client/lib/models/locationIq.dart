@@ -12,7 +12,7 @@ class LocationIQAddress {
       postcode: json["postcode"],
       country: json["country"],
       city: json["city"],
-      cityDistrict: json["cityDistrict"],
+      cityDistrict: json["city_district"],
     );
   }
 }

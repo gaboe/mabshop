@@ -10,9 +10,7 @@ class SecondStep extends StatefulWidget {
   static const String routeName = "/secondStep";
 
   @override
-  SecondStepState createState() {
-    return SecondStepState();
-  }
+  SecondStepState createState() => SecondStepState();
 }
 
 class SecondStepState extends State<SecondStep> {
@@ -32,7 +30,7 @@ class SecondStepState extends State<SecondStep> {
       appBar: AppBar(
         title: Text("Cart"),
       ),
-      body: Container(
+      body: SingleChildScrollView(
         child: Form(
           key: _formKey,
           child: Padding(

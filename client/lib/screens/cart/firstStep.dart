@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mobshop/models/cartItem.dart';
-import 'package:mobshop/screens/cart/secondStep.dart';
+import 'package:mobshop/screens/cart/secondStep/secondStep.dart';
 import 'package:mobshop/services/cartItemService.dart';
 
 class FirstStep extends StatefulWidget {

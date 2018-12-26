@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mobshop/screens/cart/firstStep.dart';
-import 'package:mobshop/screens/cart/secondStep.dart';
+import 'package:mobshop/screens/cart/secondStep/secondStep.dart';
 import 'package:mobshop/screens/catalogue/catalogue.dart';
 import 'package:mobshop/screens/home/home.dart';
 
